@@ -1,0 +1,14 @@
+syntax = "proto2";
+package myframe;
+
+message HttpReq {
+  required string url = 1;
+  required string method = 2;
+  repeated string header = 3;
+  optional string body = 4;
+}
+
+message HttpResp {
+  required int32 code = 1;
+  required string body = 2;
+}

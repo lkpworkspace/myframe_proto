@@ -1,0 +1,26 @@
+syntax = "proto2";
+package myframe;
+
+message SqlQuery {
+  required string sql = 1;
+}
+
+message SqlData {
+  oneof payload {
+    bool b = 1;
+    int32 i4 = 2;
+    int64 i8 = 3;
+    double d = 4;
+    string t = 5;
+  }
+}
+
+message SqlRowData {
+  repeated SqlData data = 1;
+}
+
+message SqlReply {
+  required bool ok = 1;
+  repeated string table_head = 2;
+  repeated SqlRowData table_row_datas = 3;
+}
