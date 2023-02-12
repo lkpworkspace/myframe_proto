@@ -11,6 +11,7 @@ message HttpReq {
   required string method = 2;
   repeated HttpHeader headers = 3;
   optional string body = 4;
+  optional string uri = 5;
 }
 
 message HttpResp {
