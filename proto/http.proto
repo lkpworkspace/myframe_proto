@@ -1,7 +1,7 @@
 syntax = "proto2";
 package myframe;
 
-message HttpHeader {
+message HttpKV {
   required string key = 1;
   required string value = 2;
 }
@@ -9,7 +9,7 @@ message HttpHeader {
 message HttpReq {
   required string url = 1;
   required string method = 2;
-  repeated HttpHeader headers = 3;
+  repeated HttpKV headers = 3;
   optional string body = 4;
   optional string uri = 5;
 }
