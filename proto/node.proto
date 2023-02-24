@@ -1,0 +1,15 @@
+syntax = "proto2";
+package myframe;
+
+message Discover {
+    repeated string mod_list = 1;
+    optional string addr_ipc = 2;
+    optional string addr_tcp = 3;
+}
+
+message Node {
+    optional string name = 1;
+    required string src = 2;
+    required string dst = 3;
+    optional string data = 4;
+}
