@@ -12,6 +12,8 @@ message HttpReq {
   repeated HttpKV headers = 3;
   optional string body = 4;
   optional string uri = 5;
+  optional string path = 6;
+  repeated HttpKV params = 7;
 }
 
 message HttpResp {
