@@ -11,6 +11,7 @@ myframe's communication protocol
 # 安装
 ```sh
 git clone https://github.com/lkpworkspace/proto.git
-cd proto && mkdir build && cd build
-cmake .. && make install
+cd proto
+cmake -S . -B build
+cmake --build build -j --config Release --target install
 ```
