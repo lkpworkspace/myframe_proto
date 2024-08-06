@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 if (POLICY CMP0091)
   cmake_policy(SET CMP0091 NEW)
 endif()
-project(myframe_pb VERSION 0.1.2)
+project(myframe_proto VERSION 0.1.4)
 
 #### cmake module
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
@@ -15,8 +15,9 @@ add_compile_options("$<$<CXX_COMPILER_ID:MSVC>:/source-charset:utf-8>")
 
 #### path setting
 set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+set(MYFRAME_INSTALL_BIN_DIR ${CMAKE_INSTALL_PREFIX}/bin)
 set(MYFRAME_INSTALL_LIB_DIR ${CMAKE_INSTALL_PREFIX}/lib)
-set(MYFRAME_INSTALL_HEADER_DIR ${CMAKE_INSTALL_PREFIX}/include/myframe_pb)
+set(MYFRAME_INSTALL_HEADER_DIR ${CMAKE_INSTALL_PREFIX}/include/${PROJECT_NAME})
 
 find_package(Protobuf REQUIRED)
 
@@ -26,12 +27,12 @@ include_directories(${Protobuf_INCLUDE_DIRS})
 file(GLOB proto_files "proto/*.proto")
 PROTOBUF_GENERATE_CPP(PROTO_SRCS PROTO_HDRS ${proto_files})
 
-add_library(myframe_pb SHARED ${PROTO_SRCS} ${PROTO_HDRS})
-target_link_libraries(myframe_pb
+add_library(${PROJECT_NAME} SHARED ${PROTO_SRCS} ${PROTO_HDRS})
+target_link_libraries(${PROJECT_NAME}
     PUBLIC
     ${Protobuf_LIBRARIES}
 )
-target_include_directories(myframe_pb
+target_include_directories(${PROJECT_NAME}
     PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
     INTERFACE
@@ -40,11 +41,11 @@ target_include_directories(myframe_pb
 
 ### install
 install(TARGETS
-    myframe_pb
+    ${PROJECT_NAME}
     EXPORT "${PROJECT_NAME}Targets"
     LIBRARY DESTINATION ${MYFRAME_INSTALL_LIB_DIR}
     ARCHIVE DESTINATION ${MYFRAME_INSTALL_LIB_DIR}
-    RUNTIME DESTINATION ${MYFRAME_INSTALL_LIB_DIR}
+    RUNTIME DESTINATION ${MYFRAME_INSTALL_BIN_DIR}
 )
 install(DIRECTORY proto DESTINATION ${MYFRAME_INSTALL_HEADER_DIR})
 install(FILES
